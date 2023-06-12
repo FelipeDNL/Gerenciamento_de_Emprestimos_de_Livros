@@ -213,7 +213,7 @@ public class telaLogado extends javax.swing.JPanel {
         });
         
         // ActionListener para o botão de exclusão
-        //AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+        //AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
         bt_excluir.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
