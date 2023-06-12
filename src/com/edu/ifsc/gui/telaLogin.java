@@ -50,7 +50,7 @@ public class telaLogin extends javax.swing.JPanel {
 
         jLabel4.setText("Senha:");
 
-        jLabel5.setText("Cadastrar novo usuário.");
+        jLabel5.setText("Novo login.");
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -67,7 +67,7 @@ public class telaLogin extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addComponent(jLabel1)
-                        .addContainerGap(109, Short.MAX_VALUE))))
+                        .addContainerGap(68, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -80,13 +80,13 @@ public class telaLogin extends javax.swing.JPanel {
                     .addComponent(tf_senha, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
+                    .addComponent(bt_cadastrar)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(bt_cadastrar)))
-                .addGap(25, 25, 25))
+                        .addGap(9, 9, 9)
+                        .addComponent(jLabel5)))
+                .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,27 +106,22 @@ public class telaLogin extends javax.swing.JPanel {
                             .addComponent(jLabel4)
                             .addComponent(tf_senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(bt_login)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(26, 26, 26)
-                                .addComponent(jLabel5)
-                                .addGap(26, 26, 26)
-                                .addComponent(bt_cadastrar)))))
-                .addContainerGap())
+                        .addComponent(bt_login))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bt_cadastrar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_loginMouseClicked
-        String url = "jdbc:mysql://localhost:3306/gerencia_registro";
-        String username = "root";
-        String password = "root";
 
-        try (Connection conn = DriverManager.getConnection(url, username, password)) {
+        try (Connection conn = DriverManager.getConnection(Main.url, Main.username, Main.password)) {
             String selectUserSQL = "SELECT * FROM usuario WHERE login = ? AND senha = ?";
             
             try (PreparedStatement selectUserStmt = conn.prepareStatement(selectUserSQL)) {
@@ -147,8 +142,6 @@ public class telaLogin extends javax.swing.JPanel {
                 }
             }
             
-        
-
         } catch (SQLException e) {
             System.err.println("Erro ao conectar com o banco de dados: " + e.getMessage());
         }

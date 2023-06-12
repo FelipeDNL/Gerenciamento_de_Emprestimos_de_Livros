@@ -11,10 +11,13 @@ public class Main extends javax.swing.JFrame {
     static telaLogin telaLogin;
     static telaRegistrar telaRegistrar;
     static telaLogado telaLogado;
+    static String url = "jdbc:mysql://localhost:3306/gerencia_registro";
+    static String username = "root";
+    static String password = "root";
 
     public Main() {
         initComponents();
-        
+                
         telaLogin = new telaLogin();
 
         this.setLocationRelativeTo(null);
