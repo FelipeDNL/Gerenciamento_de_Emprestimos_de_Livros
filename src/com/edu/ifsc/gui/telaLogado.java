@@ -2,6 +2,7 @@
 package com.edu.ifsc.gui;
 
 import java.awt.BorderLayout;
+import java.awt.event.MouseEvent;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,6 +57,11 @@ public class telaLogado extends javax.swing.JPanel {
         });
 
         bt_mudar.setText("Fazer mudanças");
+        bt_mudar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_mudarMouseClicked(evt);
+            }
+        });
 
         bt_excluir.setText("Remover Cadastro");
         bt_excluir.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -199,6 +205,51 @@ public class telaLogado extends javax.swing.JPanel {
         janela.add(Main.telaLogin, BorderLayout.CENTER);
         janela.pack();
     }//GEN-LAST:event_bt_deslogarMouseClicked
+
+    private void bt_mudarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_mudarMouseClicked
+        int row = jt_tabela.getSelectedRow();  
+        //PAREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEIIIIIIII
+        if(jt_tabela.isFocusOwner()){
+            String login = JOptionPane.showInputDialog("Digite o novo nome de usuário:");
+            String senha = JOptionPane.showInputDialog("Digite a nova senha:");
+            int id = (int) jt_tabela.getValueAt(row, 0);
+            System.out.println(id);
+            
+            String comando = "UPDATE `gerencia_registro`.`usuario` SET `login` = ?, `senha` = ? WHERE (`id` = ?)";
+            try (Connection conn = DriverManager.getConnection(Main.url, Main.username, Main.password)) {
+                try (PreparedStatement insertUserStmt = conn.prepareStatement(comando)) {
+                    insertUserStmt.setString(1, login);
+                    insertUserStmt.setString(2, senha);
+                    insertUserStmt.setInt(3, id);
+                    insertUserStmt.execute();
+                }
+                } catch (SQLException e) {
+                System.err.println("Erro ao conectar com o banco de dados: " + e.getMessage());
+            }
+            jt_tabela.clearSelection();
+        } else {
+            if(jt_tabela1.isFocusOwner()){
+                String nome = JOptionPane.showInputDialog("Digite o novo nome da pessoa:");
+                String idade = JOptionPane.showInputDialog("Digite a nova idade:");
+                String endereco = JOptionPane.showInputDialog("Digite o novo endereço da pessoa:");
+                int id = (int) jt_tabela.getValueAt(row, 0);
+                System.out.println(id);
+
+                String comando = "UPDATE `gerencia_registro`.`pessoa` SET `nome` = ?, `idade` = ?, `endereco` = ? WHERE (`id` = ?)";
+                try (Connection conn = DriverManager.getConnection(Main.url, Main.username, Main.password)) {
+                    try (PreparedStatement insertUserStmt = conn.prepareStatement(comando)) {
+                        insertUserStmt.setString(1, nome);
+                        insertUserStmt.setInt(2, Integer.parseInt(idade));
+                        insertUserStmt.setString(3, endereco);
+                        insertUserStmt.setInt(4, id);
+                        insertUserStmt.execute();
+                    }
+                } catch (SQLException e) {
+                    System.err.println("Erro ao conectar com o banco de dados: " + e.getMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_bt_mudarMouseClicked
 
     public void carregarDados() throws SQLException{
         try (Connection conn = DriverManager.getConnection(Main.url, Main.username, Main.password)) {
