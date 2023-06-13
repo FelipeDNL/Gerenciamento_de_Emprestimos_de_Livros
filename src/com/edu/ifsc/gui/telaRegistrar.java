@@ -145,13 +145,18 @@ public class telaRegistrar extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_cadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_cadastrarMouseClicked
-        if(!tf_login.getText().equals("") && !tf_senha.getText().equals("")){
+        if(!tf_login.getText().equals("") && !tf_senha.getText().equals("") && !tf_idade.getText().equals("") 
+                && !tf_nome.getText().equals("") && !tf_endereco.getText().equals("")){
 
             try (Connection conn = DriverManager.getConnection(Main.url, Main.username, Main.password)) {
                 String criarUsuario = "CREATE TABLE IF NOT EXISTS usuario (id INT PRIMARY KEY AUTO_INCREMENT, login VARCHAR(50), senha VARCHAR(50))";
                 String criarPessoa = "CREATE TABLE IF NOT EXISTS pessoa(id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,nome VARCHAR(100) NOT NULL,idade INT NOT NULL,endereco VARCHAR(150))";
                 
                 try (PreparedStatement createTableStmt = conn.prepareStatement(criarUsuario)) {
+                    createTableStmt.execute();
+                }
+                
+                try (PreparedStatement createTableStmt = conn.prepareStatement(criarPessoa)) {
                     createTableStmt.execute();
                 }
                 
