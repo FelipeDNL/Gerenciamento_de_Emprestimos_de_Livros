@@ -9,10 +9,13 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 public class telaLogado extends javax.swing.JPanel {
     private DefaultTableModel tableModel, tableModel1;
+    private int selectedTable;
     
     public telaLogado(String usuario) throws SQLException {
         initComponents();
@@ -22,6 +25,8 @@ public class telaLogado extends javax.swing.JPanel {
         tableModel1 = new DefaultTableModel();
 
         carregarDados();
+        configurarTabela1();
+        configurarTabela2();
     }
 
     @SuppressWarnings("unchecked")
@@ -39,6 +44,9 @@ public class telaLogado extends javax.swing.JPanel {
         jt_tabela = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         jt_tabela1 = new javax.swing.JTable();
+        bt_add = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
         jLabel1.setText("Editar Registros");
@@ -110,67 +118,98 @@ public class telaLogado extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        jt_tabela1.setFocusable(false);
         jScrollPane3.setViewportView(jt_tabela1);
+
+        bt_add.setText("Registrar");
+        bt_add.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_addMouseClicked(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setText("Pessoa:");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setText("Usuário:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jSeparator1)
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
+                        .addContainerGap()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jLabel3)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(bt_mudar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(bt_excluir, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(bt_excluir))
                         .addGap(20, 20, 20))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(bt_deslogar)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(bt_add)
+                            .addComponent(bt_deslogar))
                         .addGap(44, 44, 44))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jSeparator1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jl_usuario)
+                        .addGap(23, 23, 23)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jl_usuario)
-                .addGap(39, 39, 39))
+                .addComponent(jLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jl_usuario))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(167, 167, 167)
+                        .addGap(198, 198, 198)
                         .addComponent(bt_mudar)
-                        .addGap(18, 18, 18)
+                        .addGap(12, 12, 12)
                         .addComponent(bt_excluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bt_add)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bt_deslogar)))
-                .addContainerGap(12, Short.MAX_VALUE))
+                        .addComponent(bt_deslogar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -208,48 +247,65 @@ public class telaLogado extends javax.swing.JPanel {
 
     private void bt_mudarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_mudarMouseClicked
         int row = jt_tabela.getSelectedRow();  
-        //PAREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEIIIIIIII
-        if(jt_tabela.isFocusOwner()){
-            String login = JOptionPane.showInputDialog("Digite o novo nome de usuário:");
-            String senha = JOptionPane.showInputDialog("Digite a nova senha:");
-            int id = (int) jt_tabela.getValueAt(row, 0);
-            System.out.println(id);
-            
-            String comando = "UPDATE `gerencia_registro`.`usuario` SET `login` = ?, `senha` = ? WHERE (`id` = ?)";
-            try (Connection conn = DriverManager.getConnection(Main.url, Main.username, Main.password)) {
-                try (PreparedStatement insertUserStmt = conn.prepareStatement(comando)) {
-                    insertUserStmt.setString(1, login);
-                    insertUserStmt.setString(2, senha);
-                    insertUserStmt.setInt(3, id);
-                    insertUserStmt.execute();
-                }
-                } catch (SQLException e) {
-                System.err.println("Erro ao conectar com o banco de dados: " + e.getMessage());
-            }
-            jt_tabela.clearSelection();
-        } else {
-            if(jt_tabela1.isFocusOwner()){
-                String nome = JOptionPane.showInputDialog("Digite o novo nome da pessoa:");
-                String idade = JOptionPane.showInputDialog("Digite a nova idade:");
-                String endereco = JOptionPane.showInputDialog("Digite o novo endereço da pessoa:");
-                int id = (int) jt_tabela.getValueAt(row, 0);
-                System.out.println(id);
+        int row1 = jt_tabela1.getSelectedRow();  
+        
+        try {
+            if(selectedTable == 1){
+                    String login = JOptionPane.showInputDialog("Digite o novo nome de usuário:");
+                    String senha = JOptionPane.showInputDialog("Digite a nova senha:");
+                    int id = (int) jt_tabela.getValueAt(row, 0);
 
-                String comando = "UPDATE `gerencia_registro`.`pessoa` SET `nome` = ?, `idade` = ?, `endereco` = ? WHERE (`id` = ?)";
-                try (Connection conn = DriverManager.getConnection(Main.url, Main.username, Main.password)) {
-                    try (PreparedStatement insertUserStmt = conn.prepareStatement(comando)) {
-                        insertUserStmt.setString(1, nome);
-                        insertUserStmt.setInt(2, Integer.parseInt(idade));
-                        insertUserStmt.setString(3, endereco);
-                        insertUserStmt.setInt(4, id);
-                        insertUserStmt.execute();
+                    String comando = "UPDATE `gerencia_registro`.`usuario` SET `login` = ?, `senha` = ? WHERE (`id` = ?)";
+                    try (Connection conn = DriverManager.getConnection(Main.url, Main.username, Main.password)) {
+                        try (PreparedStatement insertUserStmt = conn.prepareStatement(comando)) {
+                            insertUserStmt.setString(1, login);
+                            insertUserStmt.setString(2, senha);
+                            insertUserStmt.setInt(3, id);
+                            insertUserStmt.execute();
+                        }
+                    } catch (SQLException e) {
+                        System.err.println("Erro ao conectar com o banco de dados: " + e.getMessage());
                     }
-                } catch (SQLException e) {
-                    System.err.println("Erro ao conectar com o banco de dados: " + e.getMessage());
+                    jt_tabela.clearSelection();
+                    limparTabela();
+                    carregarDados();
+
+            } else {
+                if(selectedTable == 2){
+                    String nome = JOptionPane.showInputDialog("Digite o novo nome da pessoa:");
+                    String idade = JOptionPane.showInputDialog("Digite a nova idade:");
+                    String endereco = JOptionPane.showInputDialog("Digite o novo endereço da pessoa:");
+                    int id1 = (int) jt_tabela1.getValueAt(row1, 0);
+
+                    String comando1 = "UPDATE `gerencia_registro`.`pessoa` SET `nome` = ?, `idade` = ?, `endereco` = ? WHERE (`id` = ?)";
+                    try (Connection conn = DriverManager.getConnection(Main.url, Main.username, Main.password)) {
+                        try (PreparedStatement insertUserStmt = conn.prepareStatement(comando1)) {
+                            insertUserStmt.setString(1, nome);
+                            insertUserStmt.setInt(2, Integer.parseInt(idade));
+                            insertUserStmt.setString(3, endereco);
+                            insertUserStmt.setInt(4, id1);
+                            insertUserStmt.execute();
+                        }
+                    } catch (SQLException e) {
+                        System.err.println("Erro ao conectar com o banco de dados: " + e.getMessage());
+                    }
+                    jt_tabela1.clearSelection();
+                    limparTabela();
+                    carregarDados();
                 }
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(telaLogado.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_bt_mudarMouseClicked
+
+    private void bt_addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_addMouseClicked
+        JFrame janela = (JFrame)SwingUtilities.getWindowAncestor(this);
+        Main.telaRegistrar = new telaRegistrar(jl_usuario.getText());
+        janela.getContentPane().remove(Main.telaLogado);
+        janela.add(Main.telaRegistrar, BorderLayout.CENTER);
+        janela.pack();
+    }//GEN-LAST:event_bt_addMouseClicked
 
     public void carregarDados() throws SQLException{
         try (Connection conn = DriverManager.getConnection(Main.url, Main.username, Main.password)) {
@@ -356,13 +412,49 @@ public class telaLogado extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Erro ao conectar no banco de dados.", "Erro!", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
+    private void configurarTabela1() {
+        jt_tabela.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    selectedTable = 1;
+                    // Verifica se a seleção foi alterada
+                    if (!jt_tabela.getSelectionModel().isSelectionEmpty()) {
+                        // Desseleciona a tabela 2
+                        jt_tabela1.clearSelection();
+                    }
+                }
+            }
+        });
+    }
+    
+    private void configurarTabela2() {
+        jt_tabela1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    selectedTable = 2;
+                    // Verifica se a seleção foi alterada
+                    if (!jt_tabela1.getSelectionModel().isSelectionEmpty()) {
+                        // Desseleciona a tabela 1
+                        jt_tabela.clearSelection();
+                    }
+                }
+            }
+        });
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bt_add;
     private javax.swing.JButton bt_deslogar;
     private javax.swing.JButton bt_excluir;
     private javax.swing.JButton bt_mudar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;

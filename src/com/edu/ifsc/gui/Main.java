@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
  * @author Felipe D.
  */
 public class Main extends javax.swing.JFrame {
+    
     static telaLogin telaLogin;
     static telaRegistrar telaRegistrar;
     static telaLogado telaLogado;
