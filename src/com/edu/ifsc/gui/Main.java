@@ -10,7 +10,8 @@ import java.awt.BorderLayout;
 public class Main extends javax.swing.JFrame {
     
     static telaLogin telaLogin;
-    static telaRegistrar telaRegistrar;
+    static telaRegPessoa telaRegPessoa;
+    static telaRegLivro telaRegLivro;
     static telaLogado telaLogado;
     
     static String url = "jdbc:mysql://localhost:3306/gerencia_registro"; //"localhost:3306" endereço do banco, "gerencia_registro" nome do schema.

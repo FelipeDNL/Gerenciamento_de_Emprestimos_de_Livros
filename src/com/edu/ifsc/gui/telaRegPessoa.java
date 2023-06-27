@@ -5,12 +5,11 @@ import java.awt.BorderLayout;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.*;
 
-public class telaRegistrar extends javax.swing.JPanel {
+public class telaRegPessoa extends javax.swing.JPanel {
     
-    public telaRegistrar(String login) {
+    public telaRegPessoa(String login) {
         initComponents();
         this.jl_usuario.setText(login);
     }
@@ -45,7 +44,7 @@ public class telaRegistrar extends javax.swing.JPanel {
         });
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
-        jLabel1.setText("Criar Registro");
+        jLabel1.setText("Registrar Nova Pessoa");
 
         jLabel2.setText("Login:");
 
@@ -128,11 +127,11 @@ public class telaRegistrar extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jl_usuario)))
+                        .addComponent(jl_usuario))
+                    .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -212,11 +211,11 @@ public class telaRegistrar extends javax.swing.JPanel {
         try {
             JFrame janela = (JFrame)SwingUtilities.getWindowAncestor(this);
             Main.telaLogado = new telaLogado(jl_usuario.getText());
-            janela.getContentPane().remove(Main.telaRegistrar);
+            janela.getContentPane().remove(Main.telaRegPessoa);
             janela.add(Main.telaLogado, BorderLayout.CENTER);
             janela.pack();
         } catch (SQLException ex) {
-            Logger.getLogger(telaRegistrar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(telaRegPessoa.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_bt_voltarMouseClicked
 
