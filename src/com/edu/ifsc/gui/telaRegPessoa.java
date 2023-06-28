@@ -167,30 +167,20 @@ public class telaRegPessoa extends javax.swing.JPanel {
                 && !tf_nome.getText().equals("") && !tf_endereco.getText().equals("")){
 
             try (Connection conn = DriverManager.getConnection(Main.url, Main.username, Main.password)) {
-                String criarUsuario = "CREATE TABLE IF NOT EXISTS usuario (id INT PRIMARY KEY AUTO_INCREMENT, login VARCHAR(50), senha VARCHAR(50))";
-                String criarPessoa = "CREATE TABLE IF NOT EXISTS pessoa(id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,nome VARCHAR(100) NOT NULL,idade INT NOT NULL,endereco VARCHAR(150))";
-                
-                try (PreparedStatement createTableStmt = conn.prepareStatement(criarUsuario)) {
-                    createTableStmt.execute();
-                }
-                
-                try (PreparedStatement createTableStmt = conn.prepareStatement(criarPessoa)) {
-                    createTableStmt.execute();
-                }
                 
                 String insertUsuario = "INSERT INTO usuario (login, senha) VALUES (?, ?)";
-                try (PreparedStatement insertUserStmt = conn.prepareStatement(insertUsuario)) {
-                    insertUserStmt.setString(1, tf_login.getText());
-                    insertUserStmt.setString(2, tf_senha.getText());
-                    insertUserStmt.execute();
+                try (PreparedStatement declaracao = conn.prepareStatement(insertUsuario)) {
+                    declaracao.setString(1, tf_login.getText());
+                    declaracao.setString(2, tf_senha.getText());
+                    declaracao.execute();
                 }
                 
                 String insertPessoa = "INSERT INTO pessoa (nome, idade, endereco) VALUES (?, ?, ?)";
-                try (PreparedStatement insertUserStmt = conn.prepareStatement(insertPessoa)) {
-                    insertUserStmt.setString(1, tf_nome.getText());
-                    insertUserStmt.setString(2, tf_idade.getText());
-                    insertUserStmt.setString(3, tf_endereco.getText());
-                    insertUserStmt.execute();
+                try (PreparedStatement declaracao = conn.prepareStatement(insertPessoa)) {
+                    declaracao.setString(1, tf_nome.getText());
+                    declaracao.setString(2, tf_idade.getText());
+                    declaracao.setString(3, tf_endereco.getText());
+                    declaracao.execute();
                 }
                 
                 JOptionPane.showMessageDialog(null, "Usuário criado com sucesso!");

@@ -14,7 +14,7 @@ public class Main extends javax.swing.JFrame {
     static telaRegLivro telaRegLivro;
     static telaLogado telaLogado;
     
-    static String url = "jdbc:mysql://localhost:3306/gerencia_registro"; //"localhost:3306" endereço do banco, "gerencia_registro" nome do schema.
+    static String url = "jdbc:mysql://localhost:3306/gerencia_registro"; //"localhost:3306" endereço do banco ip:porta, "gerencia_registro" nome do schema.
     static String username = "root"; //usuario mySQL
     static String password = "root"; //senha mySQL
 

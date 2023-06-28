@@ -90,13 +90,13 @@ public class telaLogin extends javax.swing.JPanel {
     private void bt_loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_loginMouseClicked
 
         try (Connection conn = DriverManager.getConnection(Main.url, Main.username, Main.password)) {
-            String selectUserSQL = "SELECT * FROM usuario WHERE login = ? AND senha = ?";
+            String usuario = "SELECT * FROM usuario WHERE login = ? AND senha = ?";
             
-            try (PreparedStatement selectUserStmt = conn.prepareStatement(selectUserSQL)) {
-                selectUserStmt.setString(1, tf_login.getText());
-                selectUserStmt.setString(2, tf_senha.getText());
+            try (PreparedStatement declaracao = conn.prepareStatement(usuario)) {
+                declaracao.setString(1, tf_login.getText());
+                declaracao.setString(2, tf_senha.getText());
 
-                try (ResultSet resultSet = selectUserStmt.executeQuery()) {
+                try (ResultSet resultSet = declaracao.executeQuery()) {
                     if (resultSet.next()) {
                         JOptionPane.showMessageDialog(null, "Login bem-sucedido!");
                         JFrame janela = (JFrame)SwingUtilities.getWindowAncestor(this);

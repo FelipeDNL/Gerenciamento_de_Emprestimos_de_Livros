@@ -154,20 +154,14 @@ public class telaRegLivro extends javax.swing.JPanel {
             && !tf_titulo.getText().equals("") && !tf_autor.getText().equals("")){
 
             try (Connection conn = DriverManager.getConnection(Main.url, Main.username, Main.password)) {
-                String criarLivro = "CREATE TABLE IF NOT EXISTS livro (id INT PRIMARY KEY AUTO_INCREMENT, titulo VARCHAR(150), autor VARCHAR(150), editora(150), quantidade INT)";
-
-                try (PreparedStatement createTableStmt = conn.prepareStatement(criarLivro)) {
-                    createTableStmt.execute();
-                }
-
-
-                String insertLivro = "INSERT INTO livro(titulo, autor, editora, quantidade) VALUES(?, ?, ?, ?);";
-                try (PreparedStatement insertUserStmt = conn.prepareStatement(insertLivro)) {
-                    insertUserStmt.setString(1, tf_titulo.getText());
-                    insertUserStmt.setString(2, tf_autor.getText());
-                    insertUserStmt.setString(3, tf_editora.getText());
-                    insertUserStmt.setInt(4, Integer.parseInt(tf_quantidade.getText()));
-                    insertUserStmt.execute();
+                
+                String insertLivro = "INSERT INTO livro(titulo, autor, editora, quantidade) VALUES(?, ?, ?, ?)";
+                try (PreparedStatement declaracao = conn.prepareStatement(insertLivro)) {
+                    declaracao.setString(1, tf_titulo.getText());
+                    declaracao.setString(2, tf_autor.getText());
+                    declaracao.setString(3, tf_editora.getText());
+                    declaracao.setInt(4, Integer.parseInt(tf_quantidade.getText()));
+                    declaracao.execute();
                 }
 
                 JOptionPane.showMessageDialog(null, "Novo livro cadastrado!");
