@@ -1,21 +1,38 @@
-# Sistema-de-Gerenciamento-de-Registros
+# Gerenciamento de Emprestimos de Livros
 
-Utilizando o mesmo sistema entregue do exercício anterior, o próximo passo de desenvolvimento é gerenciar os dados que entram e são removidos do projeto. Para tal, é necessário rever o que já foi feito:
+Este projeto consiste em um sistema de gerenciamento de registros, com foco específico na administração de empréstimos de livros, semelhante ao funcionamento de uma biblioteca. Ele permite aos usuários gerenciar os registros relacionados a livros, pessoas e empréstimos, utilizando o MySQL como banco de dados para garantir a organização e a persistência dos dados.
 
-- Sistema de login e registro de dados; O registro de pessoa é guardado no banco de dados, e o login verifica a existência de um registro de acesso e permite a entrada do sistema através de um front end;
+## MySQL
+Como um forma de visualizar como os dados foram guardados, pode ser consultado o diagrama abaixo. A tabela relacional `emprestimo` contém triggers para manter a contagem de livros disponíveis automaticamente.
 
-Logo, é possível afirmar que o básico da estrutura de comunicação com o BD já foi criado. Portanto, para continuar o sistema, deve-se levar em consideração a lógica de uso do sistema para estruturar o BD da melhor forma. Com isso, o que deve ser feito:
+<p align="center">
+  <img height='330' src="https://github.com/user-attachments/assets/90660158-8271-4412-ab62-163d25360aa6">
+</p>
 
-- Ao fazer login, na tela inicial do front ou prompt deve informar ou manter informado o usuário logado na sessão.
 
-- Deve ser possível deslogar. Com isso, o sistema só fica acessível a quem estiver logado;
+## Java Swing e Interface Gráfica do Projeto
+O sistema utiliza a linguagem Java em conjunto com a biblioteca Swing para desenvolver a interface gráfica.
 
-- Uma vez logado, é possível cadastrar pessoas como já estava sendo feito. Porém, adicionalmente, deve ser possível alterar e remover o registro do BD via front;
+Antes de entrar no sistema é necessário que o usuário entre com login e senha, previamente cadastrados no banco de dados (passos inclusos na pasta `AdicionaisMySQL`).
 
-- Agora com o registro da pessoa, pode ser feito o registro de login para ela. Assim, será possível adicionar vários registros de login e senha distintos para fazer acesso;
+<p align="center">
+  <img height='270' src="https://github.com/user-attachments/assets/8a530932-4aa0-44a0-9e1e-50b4ce51a3df">
+</p>
 
-- Como terão vários logins, é preciso ter registro Log para anotar as ações. Por exemplo, quando alguém logado edita ou remove um cadastro, no log deve ficar registrado quem o fez, a que horas, dia, mês, ano e o tipo de alteração. 
+Ao entrar com o login correto o usuário então será apresentado com a tela principal de funções. Podendo atualizar, remover e cadastrar livros, pessoas e emprestimos. Como os dados possuem persistência em um banco de dados, qualquer alteração realizada é refletida automaticamente nas informações exibidas ao usuário.
 
-- A lógica de programação para o tratamento destas informações e interações são de responsabilidade do desenvolvedor,  o que significa que deve ser feito de modo a evitar problemas de redundância, incoesão e falhas de segurança.
+<p align='center'>
+  <img height='400' src='https://github.com/user-attachments/assets/5eaaff2b-e138-4b47-a342-9675da6830b8'>
+</p>
 
-Com isso, o aluno terá aplicado boa parte do conteúdo, bem como praticado o desenvolvimento puro do banco e compartilhado com a própria experiência do front e da linguagem escolhida. 
+Para alterar adicionar algum cadastro novo, a interface é a seguinte:
+
+<p align='center'>
+  <img height='250' src='https://github.com/user-attachments/assets/c3285de2-b0ad-4a2c-9761-9f69c2a346a1'>
+</p>
+
+### Observações
+- O projeto utiliza o NetBeans como IDE, conforme indicado pelos arquivos de configuração e estrutura de diretórios.
+- A interface gráfica é construída usando formulários Swing (.form), que são arquivos XML gerados pelo NetBeans para definir a interface do usuário.
+- O projeto inclui várias operações de banco de dados, como inserção, atualização e exclusão de registros, utilizando PreparedStatement para evitar SQL injection.
+> Trabalho final da displicina de Banco de Dados de 2023.1
